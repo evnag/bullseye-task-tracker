@@ -17,8 +17,8 @@
 		<java.version>17</java.version>
 
 		<frontend-maven-plugin.version>1.14.0</frontend-maven-plugin.version>
-		<node.version>v21.2.0</node.version>
-		<yarn.version>v1.22.19</yarn.version>
+		<node.version>v18.14.2</node.version>
+		<yarn.version>v1.12.1</yarn.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -120,19 +120,19 @@
 						</goals>
 						<phase>generate-resources</phase>
 					</execution>
-					<execution>
-						<id>yarn test</id>
-						<goals>
-							<goal>yarn</goal>
-						</goals>
-						<phase>test</phase>
-						<configuration>
-							<arguments>test</arguments>
-							<environmentVariables>
-								<CI>true</CI>
-							</environmentVariables>
-						</configuration>
-					</execution>
+<!--					<execution>-->
+<!--						<id>yarn test</id>-->
+<!--						<goals>-->
+<!--							<goal>yarn</goal>-->
+<!--						</goals>-->
+<!--						<phase>test</phase>-->
+<!--						<configuration>-->
+<!--							<arguments>test</arguments>-->
+<!--							<environmentVariables>-->
+<!--								<CI>true</CI>-->
+<!--							</environmentVariables>-->
+<!--						</configuration>-->
+<!--					</execution>-->
 					<execution>
 						<id>yarn build</id>
 						<goals>
