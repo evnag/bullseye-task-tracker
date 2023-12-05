@@ -9,3 +9,7 @@ create table users
     login  TEXT,
     password   TEXT
 );
+
+-- changeSet evnag:2
+alter table users
+    add column avatar text;
