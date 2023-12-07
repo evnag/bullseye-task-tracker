@@ -9,16 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
-public class User {
+@Table(name = "authorities")
+public class Authority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstName;
-    private String lastName;
+    private Integer id;
+    @Column(name = "username", nullable = false)
     private String username;
-    private String password;
-    private String avatar;
-    private boolean enabled;
+    @Column(name = "authority", nullable = false)
+    private String authority;
 }
