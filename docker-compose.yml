@@ -22,10 +22,11 @@ services:
     environment:
       POSTGRES_USER: myUser
       POSTGRES_PASSWORD: myUser
+      POSTGRES_DB: bullseyeDb
     ports:
       - "5432:5432"
-    volumes:
-      - ./infrastructure/db/create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
+#    volumes:
+#      - ./infrastructure/db/create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
 #      - db-data:/var/lib/postgresql/data
     restart: on-failure:max-retries 12
 
