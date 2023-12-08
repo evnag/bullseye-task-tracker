@@ -26,8 +26,8 @@ services:
       - "5432:5432"
     volumes:
       - ./infrastructure/db/create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
-      - db-data:/var/lib/postgresql/data
-    restart: unless-stopped
+#      - db-data:/var/lib/postgresql/data
+    restart: on-failure:max-retries 12
 
   pgadmin:
     container_name: pgadmin4_container
