@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
             "/login", "/register",
-            "/index.html", "/static/**",
+            "/index*", "/static/**",
             "/*.ico", "/*.json", "/*.png", "/*.svg", "/assets/**"
 //            "/user"
 //            "/user/*/avatar"
@@ -60,7 +60,7 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
-                                .requestMatchers("/**").authenticated()
+                                .anyRequest().authenticated()
 //                        .anyRequest().authenticated()
                 )
 //                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -69,10 +69,11 @@ public class WebSecurityConfig {
 //                .formLogin(
 //                        form -> form
 //                                .loginPage("/login")
-//                                .loginProcessingUrl("/login")
-//                                .defaultSuccessUrl("/")
+////                                .loginProcessingUrl("/login")
+////                                .defaultSuccessUrl("/")
 //                                .permitAll()
-//                ).logout(
+//                )
+//                .logout(
 //                        logout -> logout
 //                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 //                                .permitAll()

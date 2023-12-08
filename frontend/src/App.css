@@ -1,24 +1,75 @@
 #root {
-  max-width: 1280px;
+  max-width: 580px;
+  min-height: 730px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  color: #000000;
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  display: flex;
+  gap: 20px;
 }
 
-@keyframes logo-spin {
+.square {
+  width: 75px;
+  height: 75px;
+}
+
+.square_lg-grey {
+  background: #d9d9d9;
+}
+
+.square_lg-green {
+  background: #11dd21;
+}
+
+.square_lg-red {
+  background: #dd0000;
+}
+
+.square_sm-green {
+  width: 37px;
+  height: 37px;
+  background: #11dd21;
+}
+
+.title {
+  align-self: center;
+}
+
+.text-box {
+  padding-top: 75px;
+}
+
+#text-box_input {
+  background: #dddddd;
+  width: 442px;
+  height: 41px;
+  border-radius: 8px;
+  border: 0;
+  text-indent: 10px;
+}
+
+#text-box_input::placeholder {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  /* color: #000000; */
+}
+
+.some-message {
+  padding-top: 21px;
+  text-align: left;
+}
+
+.project-desc {
+  padding-top: 226px;
+}
+
+/* @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -31,12 +82,4 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+} */
