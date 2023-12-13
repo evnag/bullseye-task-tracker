@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -16,6 +18,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity
+//@EnableWebSecurity
 public class WebSecurityConfig {
 
     @Value("${spring.datasource.url}")
@@ -31,11 +34,10 @@ public class WebSecurityConfig {
     private String dbDriver;
 
     private static final String[] AUTH_WHITELIST = {
-            "/login", "/register",
+//            "/login",
+//            "/register",
             "/index*", "/static/**",
             "/*.ico", "/*.json", "/*.png", "/*.svg", "/assets/**"
-//            "/user"
-//            "/user/*/avatar"
     };
 
     @Bean
@@ -56,28 +58,44 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authz -> authz
+        http
+                .authorizeHttpRequests((authorizeRequests) ->
+                        authorizeRequests
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
-                                .anyRequest().authenticated()
-//                        .anyRequest().authenticated()
+                                .requestMatchers("/**").authenticated()
                 )
-//                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .formLogin((formLogin) ->
+                        formLogin
+                                .usernameParameter("username")
+                                .passwordParameter("password")
+                                .defaultSuccessUrl("/api/v1/user", true)
+//                                .failureUrl("/authentication/login?failed")
+//                                .loginProcessingUrl("/authentication/login/process")
+                );
+        return http.build();
+
+//        return http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(authz -> authz
+////                                .anyRequest().permitAll()
+//                        .requestMatchers(AUTH_WHITELIST).permitAll()
+//                                .anyRequest().authenticated()
+//                )
+////                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 //                .cors(withDefaults())
-                .httpBasic(withDefaults())
+////                .httpBasic(withDefaults())
 //                .formLogin(
 //                        form -> form
-//                                .loginPage("/login")
-////                                .loginProcessingUrl("/login")
-////                                .defaultSuccessUrl("/")
-//                                .permitAll()
+////                                .loginPage("/login")
+//////                                .loginProcessingUrl("/login")
+//                                .defaultSuccessUrl("/api/v1/user")
+////                                .permitAll()
 //                )
-//                .logout(
-//                        logout -> logout
-//                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                                .permitAll()
-//                )
-                .build();
+////                .logout(
+////                        logout -> logout
+////                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+////                                .permitAll()
+////                )
+//                .build();
     }
 }

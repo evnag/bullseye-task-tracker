@@ -34,4 +34,8 @@ public class UserService {
         Authority authority = authorityService.addAuthority(user, Role.USER);
         return Pair.of(user, authority);
     }
+
+    public User getUserByUserName(String username) {
+        return repository.findByUserName(username).orElseThrow(RuntimeException::new);
+    }
 }
