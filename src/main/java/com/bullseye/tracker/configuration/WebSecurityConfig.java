@@ -4,17 +4,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity
@@ -65,10 +60,10 @@ public class WebSecurityConfig {
                                 .requestMatchers("/**").authenticated()
                 )
                 .formLogin((formLogin) ->
-                        formLogin
-                                .usernameParameter("username")
-                                .passwordParameter("password")
-                                .defaultSuccessUrl("/api/v1/user", true)
+                                formLogin
+                                        .usernameParameter("username")
+                                        .passwordParameter("password")
+                                        .defaultSuccessUrl("/api/v1/user", true)
 //                                .failureUrl("/authentication/login?failed")
 //                                .loginProcessingUrl("/authentication/login/process")
                 );
