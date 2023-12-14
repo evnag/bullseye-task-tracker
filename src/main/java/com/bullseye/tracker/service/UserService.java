@@ -1,5 +1,7 @@
 package com.bullseye.tracker.service;
 
+import com.bullseye.tracker.dto.UserDto;
+import com.bullseye.tracker.mapper.UserMapper;
 import com.bullseye.tracker.model.User;
 import com.bullseye.tracker.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository repository;
+    private final UserMapper mapper;
 
     public User save(User user) {
         if (user == null) {
@@ -26,5 +29,27 @@ public class UserService {
 
     public User getUserByUserName(String username) {
         return repository.findByUsername(username).orElseThrow(RuntimeException::new);
+    }
+
+    public UserDto update(String username, UserDto userDto) {
+
+        User newUser = mapper.dtoToEntity(userDto);
+        User userToUpdate = repository.findByUsername(username)
+                .orElseThrow(RuntimeException::new);
+
+        if (newUser.getFirstName() != null) {
+            userToUpdate.setFirstName(newUser.getFirstName());
+        }
+        if (newUser.getLastName() != null) {
+            userToUpdate.setFirstName(newUser.getLastName());
+        }
+        if (newUser.getRole() != null) {
+            userToUpdate.setRole(newUser.getRole());
+        }
+
+        repository.save(userToUpdate);
+
+        return mapper.entityToDto(userToUpdate);
+
     }
 }
