@@ -1,0 +1,32 @@
+.userpic {
+  display: flex;
+  height: 100%;
+  width: 160px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userpic-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.userpic.name,
+.name.first_name,
+.name.last_name {
+  color: #000;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.userpic .name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}

@@ -1,0 +1,13 @@
+.management {
+  display: flex;
+  margin: auto;
+  width: 640px;
+  align-items: center;
+  justify-content: end;
+}
+
+.management,
+li {
+  list-style-type: none;
+  text-align: left;
+}
