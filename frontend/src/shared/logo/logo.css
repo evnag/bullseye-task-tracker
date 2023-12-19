@@ -1,0 +1,47 @@
+.logo {
+  display: flex;
+  height: 75px;
+  width: 175px;
+  align-items: center;
+  justify-content: start;
+  gap: 20px;
+}
+
+.logo_small {
+  height: 37px;
+}
+
+.icon,
+.icon-green,
+.icon-gray,
+.icon-red {
+  height: 100%;
+  width: 75px;
+}
+
+.logo.logo_small .icon-green,
+.logo.logo_small .icon-gray,
+.logo.logo_small .icon-red {
+  width: 37px;
+}
+
+.icon-gray {
+  background: #d9d9d9;
+}
+
+.icon-green {
+  background: #11dd21;
+}
+
+.icon-red {
+  background: #d00;
+}
+
+.logo .brand {
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
