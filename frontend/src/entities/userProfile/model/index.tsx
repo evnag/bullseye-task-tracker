@@ -9,10 +9,10 @@ export interface UserProfileProps {
   lastName: string;
   email: string;
   avatar?: string;
-  role: UserRole.USER | UserRole.ADMIN | UserRole.MANAGER;
+  role: UserRole;
 }
 
-export default function UserProfile({
+export default function userProfile({
   firstName,
   lastName,
   email,

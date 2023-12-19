@@ -1,13 +1,13 @@
-.management {
+.nav-menu {
   display: flex;
+  flex-direction: column;
   margin: auto;
   width: 640px;
   align-items: center;
   justify-content: end;
 }
 
-.management,
-li {
+.nav-menu li {
   list-style-type: none;
   text-align: left;
 }

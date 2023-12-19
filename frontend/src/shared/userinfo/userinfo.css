@@ -6,14 +6,9 @@
   justify-content: center;
 }
 
-.user-info,
-li {
+.user-info li {
   display: flex;
   align-items: center;
   list-style-type: none;
   text-align: left;
-}
-
-.user-info li :last-child {
-  /* padding-top: 40px; */
 }

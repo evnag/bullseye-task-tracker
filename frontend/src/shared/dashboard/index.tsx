@@ -4,6 +4,6 @@ export interface DashboardProps {
   children: JSX.Element[];
 }
 
-export default function Header({ children }: DashboardProps) {
+export default function Dashboard({ children }: DashboardProps) {
   return <div className="dashboard">{children}</div>;
 }
