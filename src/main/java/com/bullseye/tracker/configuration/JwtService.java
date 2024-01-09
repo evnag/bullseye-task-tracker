@@ -1,13 +1,22 @@
 package com.bullseye.tracker.configuration;
 
+import com.bullseye.tracker.auth.AuthRequest;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
 import java.security.Key;
 import java.util.Date;
@@ -16,12 +25,17 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
     @Value("${application.security.jwt.secret-key}")
     private String SECRET_KEY;
     @Value("${application.security.jwt.expiration}")
     private long jwtExpiration;
+    @Value("${application.security.jwt.cookie-name}")
+    private String jwtCookie;
+
+    private final AuthenticationManager authenticationManager;
 
     public String getUserEmail(String token) {
         return getClaim(token, Claims::getSubject);
@@ -61,6 +75,35 @@ public class JwtService {
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public String getJwtFromCookies(HttpServletRequest request) {
+        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+        if (cookie != null) {
+            return cookie.getValue();
+        } else {
+            return null;
+        }
+    }
+
+    public ResponseCookie generateJwtCookie(UserDetails userDetails) {
+        String jwt = generateToken(userDetails);
+        ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("api/v1/auth").maxAge(jwtExpiration).httpOnly(true).build();
+        return cookie;
+    }
+
+    public ResponseCookie getCleanJwtCookie() {
+        ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("api/v1/auth").build();
+        return cookie;
+    }
+
+    public Authentication getAuthentication(AuthRequest request) {
+        return authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
     }
 
     private Claims getAllClaims(String token) {

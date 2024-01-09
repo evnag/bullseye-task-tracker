@@ -7,7 +7,7 @@ export enum UserRole {
 export interface UserProfileProps {
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
   avatar?: string;
   role: UserRole;
 }
@@ -15,7 +15,7 @@ export interface UserProfileProps {
 export default function userProfile({
   firstName,
   lastName,
-  email,
+  username,
   role,
 }: UserProfileProps): UserProfileProps {
   let demoUser: UserProfileProps;
@@ -23,7 +23,7 @@ export default function userProfile({
   demoUser = {
     firstName: firstName,
     lastName: lastName,
-    email: email,
+    username: username,
     role: role,
   };
 

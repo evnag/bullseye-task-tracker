@@ -23,18 +23,29 @@ public class UserController {
         return userService.save(user);
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
         return userService.findAll();
     }
 
-    @GetMapping
+    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/me")
     public ResponseEntity<User> getUser(Authentication authentication) {
         return ResponseEntity.ok(userService.getUserByUserName(authentication.getName()));
+    }
+
+    @GetMapping("")
+    public String getString() {
+        return "ResponseEntity.ok(userService.getUserByUserName(authentication.getName()))";
     }
 
     @PatchMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserDto> updateUser(Authentication authentication, @RequestBody UserDto dto) {
         return ResponseEntity.ok(userService.update(authentication.getName(), dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        return userService.delete(id);
     }
 }

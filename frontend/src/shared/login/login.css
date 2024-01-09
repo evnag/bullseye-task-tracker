@@ -1,14 +1,18 @@
 .login {
   display: flex;
+  flex-direction: column;
   padding-top: 75px;
 }
 
 .auths {
   display: flex;
-  padding-top: 75px;
+  margin: 75px auto;
+  position: relative;
 }
 
-#auths_input {
+.input,
+.input-red,
+.input-green {
   background: #dddddd;
   width: 442px;
   height: 41px;
@@ -17,8 +21,10 @@
   text-indent: 10px;
 }
 
-.welcome-message {
+.input-red {
+  border: 2px solid red;
 }
 
-.desc-message {
+.input-green {
+  border: 2px solid green;
 }

@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  margin: 65px 0;
+}
+.digit {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80px;
+}
+
+.digit .hidden {
+  opacity: 0;
+}
+
+.one {
+  width: 50px;
+}
+
+.red-dot {
+  margin: 10px 10px 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background-color: red;
+}

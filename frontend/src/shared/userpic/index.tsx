@@ -4,7 +4,7 @@ import { cn } from "@bem-react/classname";
 
 export interface UserPicProps {
   showUser: boolean;
-  profile: UserProfileProps;
+  profile?: UserProfileProps;
 }
 
 export default function UserPic({ showUser, profile }: UserPicProps) {

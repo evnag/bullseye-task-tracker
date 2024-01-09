@@ -16,6 +16,9 @@ services:
       - SPRING_DATASOURCE_USERNAME=myUser
       - SPRING_DATASOURCE_PASSWORD=myUser
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
+    networks:
+      tracker-net:
+        ipv4_address: "172.27.0.10"
 
   service-db:
     image: postgres:14.7-alpine
@@ -29,6 +32,9 @@ services:
 #      - ./infrastructure/db/create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
 #      - db-data:/var/lib/postgresql/data
     restart: on-failure:max-retries 12
+    networks:
+      tracker-net:
+        ipv4_address: "172.27.0.9"
 
   pgadmin:
     container_name: pgadmin4_container
@@ -41,7 +47,33 @@ services:
       - "5050:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+    networks:
+      tracker-net:
+        ipv4_address: "172.27.0.8"
+
+  nginx:
+    depends_on:
+      - client-app
+    image: nginx:latest
+    ports:
+      - "7070:7070"
+    volumes:
+      - "./target/classes/static:/usr/share/nginx/html"
+      - "./nginx:/etc/nginx/conf.d"
+    restart: always
+    networks:
+      tracker-net:
+        ipv4_address: "172.27.0.16"
 
 volumes:
   db-data:
   pgadmin-data:
+
+networks:
+  tracker-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.27.0.0/16"
+          gateway: "172.27.0.1"

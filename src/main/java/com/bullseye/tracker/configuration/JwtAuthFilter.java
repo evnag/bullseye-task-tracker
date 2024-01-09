@@ -30,18 +30,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        final String email;
+        String jwt = parseJwt(request);
 
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (jwt == null) {
             filterChain.doFilter(request, response);
             return;
         }
-        jwt = authHeader.substring(7);
-        email = jwtService.getUserEmail(jwt);
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+
+        String username = jwtService.getUserEmail(jwt);
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
@@ -56,4 +55,43 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
+
+    private String parseJwt(HttpServletRequest request) {
+        return jwtService.getJwtFromCookies(request);
+    }
+
+    // Filter w/ getting jwt from Authorization header
+//    @Override
+//    protected void doFilterInternal(
+//            @NonNull HttpServletRequest request,
+//            @NonNull HttpServletResponse response,
+//            @NonNull FilterChain filterChain
+//    ) throws ServletException, IOException {
+//
+//        final String authHeader = request.getHeader("Authorization");
+//        final String jwt;
+//        final String email;
+//
+//        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
+//        jwt = authHeader.substring(7);
+//        email = jwtService.getUserEmail(jwt);
+//        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+//            UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
+//            if (jwtService.isTokenValid(jwt, userDetails)) {
+//                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+//                        userDetails,
+//                        null,
+//                        userDetails.getAuthorities()
+//                );
+//                authToken.setDetails(
+//                        new WebAuthenticationDetailsSource().buildDetails(request)
+//                );
+//                SecurityContextHolder.getContext().setAuthentication(authToken);
+//            }
+//        }
+//        filterChain.doFilter(request, response);
+//    }
 }

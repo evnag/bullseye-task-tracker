@@ -3,6 +3,8 @@ package com.bullseye.tracker.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class UserDto {
@@ -11,6 +13,5 @@ public class UserDto {
     private String lastName;
     private String username;
     private String avatar;
-    private String role;
-
+    private List<String> roles;
 }

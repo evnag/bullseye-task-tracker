@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { UserProfileProps } from "../../entities/userProfile/model";
 import "./userinfo.css";
 import { cn } from "@bem-react/classname";
@@ -13,11 +14,11 @@ export default function UserInfo({ user }: UserInfoProps) {
     <div className={userInfo()}>
       <ul>
         <li>
-          <a href="#">{user.email}</a>
+          <a href="#">{user.username}</a>
         </li>
         <li>{user.role}</li>
         <li>
-          <a href="#">Выйти из учетной записи</a>
+          <Link to="/login">Выйти из учетной записи</Link>
         </li>
       </ul>
     </div>
