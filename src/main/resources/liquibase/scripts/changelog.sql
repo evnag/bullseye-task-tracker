@@ -47,3 +47,14 @@ alter table authorities
 -- changeSet evnag:6
 alter table users
     add column enabled boolean default true;
+
+-- changeSet evnag:7
+alter table users
+    drop column enabled,
+    add column role text;
+
+drop table authorities;
+
+-- changeSet evnag:8
+alter table users
+    rename column username to user_name;

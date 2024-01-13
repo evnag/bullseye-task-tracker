@@ -1,82 +1,53 @@
 package com.bullseye.tracker.configuration;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-
-import javax.sql.DataSource;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
-@EnableMethodSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    @Value("${spring.datasource.url}")
-    private String jdbcURl;
+    private final JwtAuthFilter jwtAuthFilter;
+    private final AuthenticationProvider authenticationProvider;
+    private final AuthEntryPointJwt unauthorizedHandler;
 
-    @Value("${spring.datasource.username}")
-    private String dbUsername;
-
-    @Value("${spring.datasource.password}")
-    private String dbPassword;
-
-    @Value("${spring.datasource.driver-class-name}")
-    private String dbDriver;
-
-    private static final String[] AUTH_WHITELIST = {
-            "/login", "/register",
-            "/index.html", "/static/**",
-            "/*.ico", "/*.json", "/*.png", "/*.svg", "/assets/**"
-//            "/user"
-//            "/user/*/avatar"
-    };
+    private static final String[] WHITE_LIST_URL = {
+            "/",
+            "/api/v1/auth/**",
+            "/index.html", "/static/**", "/assets/**",
+            "/*.ico", "/*.json", "/*.png", "/*.svg",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/webjars/**",
+            "/swagger-ui.html"};
 
     @Bean
-    public DataSource dataSource() {
-        DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.url(jdbcURl);
-        dataSourceBuilder.username(dbUsername);
-        dataSourceBuilder.driverClassName(dbDriver);
-        dataSourceBuilder.password(dbPassword);
-        return dataSourceBuilder.build();
-    }
-
-    @Bean
-    public JdbcUserDetailsManager jdbcUserDetailsManager() {
-        return new JdbcUserDetailsManager(dataSource());
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        return http
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
                 .csrf(AbstractHttpConfigurer::disable)
+//                .exceptionHandling(exeption -> exeption.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests(authz -> authz
-                                .requestMatchers(AUTH_WHITELIST).permitAll()
-                                .requestMatchers("/**").authenticated()
-//                        .anyRequest().authenticated()
+//                                .requestMatchers(WHITE_LIST_URL)
+//                                .permitAll()
+//                                .requestMatchers("/api/**").authenticated()
+//                                .requestMatchers(WHITE_LIST_URL).permitAll()
+                                .anyRequest().permitAll()
+//                                .anyRequest().authenticated()
                 )
-//                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .cors(withDefaults())
-                .httpBasic(withDefaults())
-//                .formLogin(
-//                        form -> form
-//                                .loginPage("/login")
-//                                .loginProcessingUrl("/login")
-//                                .defaultSuccessUrl("/")
-//                                .permitAll()
-//                ).logout(
-//                        logout -> logout
-//                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                                .permitAll()
-//                )
-                .build();
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterAfter(new SpaWebFilter(), BasicAuthenticationFilter.class)
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 }

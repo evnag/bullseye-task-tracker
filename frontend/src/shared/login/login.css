@@ -1,0 +1,30 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  padding-top: 75px;
+}
+
+.auths {
+  display: flex;
+  margin: 75px auto;
+  position: relative;
+}
+
+.input,
+.input-red,
+.input-green {
+  background: #dddddd;
+  width: 442px;
+  height: 41px;
+  border-radius: 8px;
+  border: 0;
+  text-indent: 10px;
+}
+
+.input-red {
+  border: 2px solid red;
+}
+
+.input-green {
+  border: 2px solid green;
+}

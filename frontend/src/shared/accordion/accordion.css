@@ -1,0 +1,33 @@
+.accordion-title {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  flex-basis: 100px;
+  text-align: left;
+  width: 400px;
+}
+
+.accordion-title .title {
+  width: 100px;
+}
+
+.accordion-title .value {
+  width: 300px;
+}
+
+.accordion-content {
+  width: 400px;
+  display: flex;
+  justify-content: stretch;
+  margin: 0 auto;
+}
+
+.accordion-item-input input {
+  width: 100%;
+  background: #dddddd;
+  width: 442px;
+  height: 41px;
+  border-radius: 8px;
+  border: 0;
+  text-indent: 10px;
+}
