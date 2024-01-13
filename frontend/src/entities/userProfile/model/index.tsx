@@ -1,7 +1,7 @@
 export enum UserRole {
-  USER = "Пользователь",
-  ADMIN = "Администратор",
-  MANAGER = "Менеджер",
+  USER,
+  ADMIN,
+  MANAGER,
 }
 
 export interface UserProfileProps {

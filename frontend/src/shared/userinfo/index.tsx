@@ -18,7 +18,7 @@ export default function UserInfo({ user }: UserInfoProps) {
         </li>
         <li>{user.role}</li>
         <li>
-          <Link to="/login">Выйти из учетной записи</Link>
+          <Link to={"/logout"}>Выйти из учетной записи</Link>
         </li>
       </ul>
     </div>

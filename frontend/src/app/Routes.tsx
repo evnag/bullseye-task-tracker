@@ -5,7 +5,8 @@ import UserProfilePage from "../pages/UserProfilePage";
 import LoginPage from "../pages/LoginPage";
 import UnauthorizedPage from "../pages/UnauthorizedPage";
 import BadRequestPage from "../pages/BadRequestPage";
-// import ProtectedRoute from "../features/protectedRoute";
+import LogoutPage from "../pages/LogoutPage";
+import CreateUserPage from "../pages/CreateUserPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,21 +19,17 @@ export const router = createBrowserRouter([
       },
 
       { path: "login", element: <LoginPage /> },
+      { path: "logout", element: <LogoutPage /> },
 
       {
-        path: "/me",
-        element: (
-          <UserProfilePage />
-          // <ProtectedRoute>
-          //   <UserProfilePage />
-          // </ProtectedRoute>
-        ),
+        path: "me",
+        element: <UserProfilePage />,
       },
       { path: "search", element: <TaskSearchPage /> },
+      { path: "add-user", element: <CreateUserPage /> },
 
-      { path: "/401", element: <UnauthorizedPage /> },
-      { path: "/400", element: <BadRequestPage /> },
-      //   { path: "userprofile", element: <UserProfilePage /> }
+      { path: "401", element: <UnauthorizedPage /> },
+      { path: "400", element: <BadRequestPage /> },
     ],
   },
 ]);

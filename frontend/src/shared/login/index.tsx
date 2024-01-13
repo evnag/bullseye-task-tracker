@@ -11,7 +11,6 @@ import {
   succeedValidated,
   validationFailed,
 } from "../../features/loginButton/loginButtonSlice";
-// import { useLoginUserMutation } from "../../app/api/authApi";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import { userLogin } from "../../app/services/authService";
 
@@ -83,16 +82,7 @@ export default function Login({}: LoginProps) {
     }
   }
 
-  // w/ rtk query
-  // const handleChange = () => {
-  //   if (password && username) {
-  //     loginUser({ username, password });
-  //   }
-  // };
-
-  // w/ axios
   let navigate: NavigateFunction = useNavigate();
-  const API_URL: string = "/api/v1/user/";
 
   // const [loading, setLoading] = useState<boolean>(false);
   // const [loginMessage, setMessage] = useState<string>("");
@@ -104,8 +94,7 @@ export default function Login({}: LoginProps) {
 
       userLogin(username, password).then(
         () => {
-          navigate(API_URL + "/me");
-          window.location.reload();
+          navigate("/me");
         }
         // (error) => {
         //   const resMessage =
@@ -136,9 +125,6 @@ export default function Login({}: LoginProps) {
           <LoginButton handleForm={handleChange}></LoginButton>
         </div>
         <div className="welcome-message">{message}</div>
-        <div className="desc-message">
-          ВЯблочко - система контроля прогресса выполнения задач
-        </div>
       </div>
     </>
   );

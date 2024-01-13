@@ -2,14 +2,6 @@ import axios from "axios";
 
 const API_URL: string = "/api/v1/auth/";
 
-// export const register = (username: string, email: string, password: string) => {
-//   return axios.post(API_URL + "register", {
-//     username,
-//     email,
-//     password,
-//   });
-// };
-
 export const userLogin = (username: string, password: string) => {
   return axios
     .post(API_URL + "login", {
@@ -25,8 +17,11 @@ export const userLogin = (username: string, password: string) => {
     });
 };
 
-export const logout = () => {
+export const userLogout = () => {
   localStorage.removeItem("user");
+  return axios.post(API_URL + "logout").then((response) => {
+    return response.data;
+  });
 };
 
 export const getCurrentUser = () => {

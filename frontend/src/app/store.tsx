@@ -4,11 +4,15 @@ import loginButtonReducer from "../features/loginButton/loginButtonSlice";
 import { authApi } from "./api/authApi";
 import { userApi } from "./api/userApi";
 import userReducer from "../features/users/userSlice";
+import saveButtonReducer from "../features/saveButton/saveButtonSlice";
+import userFilledReducer from "../features/userFilled/userFilledSlice";
 
 const store = configureStore({
   reducer: {
     authInput: authInputReducer,
     loginButton: loginButtonReducer,
+    saveButton: saveButtonReducer,
+    userFilled: userFilledReducer,
 
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,

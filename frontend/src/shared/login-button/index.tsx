@@ -30,8 +30,6 @@ export default function LoginButton({ handleForm }: LoginButtonProps) {
         enabled();
         handleForm();
       }}
-    >
-      {/* <div className={loginButton()}></div> */}
-    </button>
+    ></button>
   );
 }

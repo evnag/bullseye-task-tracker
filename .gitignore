@@ -31,7 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
-!/.idea/
-!/.mvn/
-!/mvnw
-!/mvnw.cmd
+/.idea/
+/.mvn/
+/mvnw
+/mvnw.cmd
+/frontend/node_modules/
+/frontend/node/
+/frontend/dist/
