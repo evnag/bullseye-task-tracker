@@ -1,0 +1,30 @@
+.create-title{
+    margin: 30px 0;
+}
+
+.btn-div {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+.btn {
+   width: 158px;
+   height: 40px; 
+   margin: 0 12px;
+}
+
+.save-btn {
+    background-color: #106DF9;
+    color: #fff;
+    opacity: 1;
+}
+
+.save-btn:disabled{
+    opacity: .5;
+}
+
+.decline-btn {
+    background-color: #fff;
+    color: #106DF9;
+    border: 1px solid #106DF9;
+}

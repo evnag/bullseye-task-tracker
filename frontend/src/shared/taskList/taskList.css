@@ -1,0 +1,11 @@
+.task-list-item{
+    width: 100%;
+    background: #dddddd;
+    width: 442px;
+    height: 41px;
+    border-radius: 8px;
+    border: 0;
+    text-indent: 10px;
+    margin: 15px auto;
+    text-align: left;
+}

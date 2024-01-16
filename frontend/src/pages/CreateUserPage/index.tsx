@@ -4,8 +4,11 @@ import Header from "../../shared/header";
 import Logo from "../../shared/logo";
 import UserPic from "../../shared/userpic";
 import AccordionItem from "../../shared/accordionItem";
-import { UserFilledState } from "../../features/userFilled/userFilledSlice";
-import { useAppSelector } from "../../app/hooks";
+import { UserFilledState, defaulted } from "../../features/userFilled/userFilledSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { addNewUser } from "../../app/services/userService";
+import "./create-user-page.css"
 
 interface Props {}
 
@@ -75,27 +78,41 @@ export default function CreateUserPage({}: Props) {
       id: 6,
       title: "Роль",
       content: (
-        <AccordionItem field={"role"} message={"Default"} placeholder={""} />
+        <AccordionItem field={"role"} message={"Выберите роль"} placeholder={""} />
       ),
       value: "role",
     },
   ];
 
   const [activeIndex, setActiveIndex] = useState(null);
-  const [isButtonActive, setIsButtonActive] = useState(false);
   const handleItemClick = (index: any) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
-    setIsButtonActive(!isButtonActive);
   };
 
   const field = useAppSelector((state) => state.userFilled);
+  const dispatch = useAppDispatch();
+
+  let navigate: NavigateFunction = useNavigate();
+  const handleDiclineButton= (event:React.SyntheticEvent) => {
+    event.preventDefault();
+    dispatch(defaulted());
+    navigate("/me");
+  }
+
+  const handleSaveButton = () => {
+    addNewUser(field.username, field.password, field.firstName, field.lastName, field.avatar, field.role).then(
+      () => {
+        dispatch(defaulted());
+        navigate("/me");
+      });
+  }
   return (
     <>
       <Header>
         <Logo color="icon-green" small={false}></Logo>
         <UserPic profile={undefined} showUser={false}></UserPic>
       </Header>
-      <div>Создание пользователя</div>
+      <div className="create-title">Создание пользователя</div>
       <div className="accordion">
         {accordionData.map(({ title, content, value }, index) => (
           <Accordion
@@ -105,15 +122,22 @@ export default function CreateUserPage({}: Props) {
             value={value as keyof UserFilledState}
             onClick={() => handleItemClick(index)}
             isActive={activeIndex === index}
+            field={field}
           />
         ))}
       </div>
 
-      <div>
-        <button disabled={!field.password || !field.username} type="button">
+      <div className="btn-div">
+        <button disabled={!field.password || !field.username}
+        className="btn save-btn"
+        onClick={(event: React.SyntheticEvent) => {
+          event.preventDefault();
+          handleSaveButton();
+        }} 
+         type="button">
           Сохранить
         </button>
-        <button type="button">Отменить</button>
+        <button className="btn decline-btn" onClick={handleDiclineButton} type="button">Отменить</button>
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 package com.bullseye.tracker.controller;
 
+import com.bullseye.tracker.dto.CreateUserDto;
 import com.bullseye.tracker.dto.UserDto;
 import com.bullseye.tracker.model.User;
 import com.bullseye.tracker.service.UserService;
@@ -19,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
+    public User addUser(@RequestBody CreateUserDto user) {
         return userService.save(user);
     }
 

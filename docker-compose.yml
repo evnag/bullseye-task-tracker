@@ -28,9 +28,9 @@ services:
       POSTGRES_DB: bullseyeDb
     ports:
       - "5432:5432"
-#    volumes:
+    volumes:
 #      - ./infrastructure/db/create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
-#      - db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     restart: on-failure:max-retries 12
     networks:
       tracker-net:

@@ -1,6 +1,8 @@
 package com.bullseye.tracker.service;
 
+import com.bullseye.tracker.dto.CreateUserDto;
 import com.bullseye.tracker.dto.UserDto;
+import com.bullseye.tracker.mapper.CreateUserMapper;
 import com.bullseye.tracker.mapper.UserMapper;
 import com.bullseye.tracker.model.User;
 import com.bullseye.tracker.repository.UserRepository;
@@ -17,12 +19,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final UserMapper mapper;
+    private final CreateUserMapper createUserMapper;
 
-    public User save(User user) {
+    public User save(CreateUserDto user) {
         if (user == null) {
             return null;
         }
-        return repository.save(user);
+        return repository.save(createUserMapper.dtoToEntity(user));
     }
 
     public List<User> findAll() {

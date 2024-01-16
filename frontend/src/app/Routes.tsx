@@ -7,6 +7,7 @@ import UnauthorizedPage from "../pages/UnauthorizedPage";
 import BadRequestPage from "../pages/BadRequestPage";
 import LogoutPage from "../pages/LogoutPage";
 import CreateUserPage from "../pages/CreateUserPage";
+import CreateTaskPage from "../pages/CreateTaskPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       },
       { path: "search", element: <TaskSearchPage /> },
       { path: "add-user", element: <CreateUserPage /> },
+      { path: "add-task", element: <CreateTaskPage /> },
 
       { path: "401", element: <UnauthorizedPage /> },
       { path: "400", element: <BadRequestPage /> },

@@ -58,3 +58,15 @@ drop table authorities;
 -- changeSet evnag:8
 alter table users
     rename column username to user_name;
+
+-- changeSet evnag:9
+create table task
+(
+    id  bigserial not null primary key,
+    task_name TEXT,
+    priority  TEXT,
+    status  TEXT,
+    description   TEXT,
+    difficulty   TEXT,
+    executor   TEXT
+);
