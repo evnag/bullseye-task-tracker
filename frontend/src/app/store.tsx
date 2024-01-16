@@ -6,6 +6,7 @@ import { userApi } from "./api/userApi";
 import userReducer from "../features/users/userSlice";
 import saveButtonReducer from "../features/saveButton/saveButtonSlice";
 import userFilledReducer from "../features/userFilled/userFilledSlice";
+import taskFilledSlice from "../features/taskFilled/taskFilledSlice";
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     loginButton: loginButtonReducer,
     saveButton: saveButtonReducer,
     userFilled: userFilledReducer,
+    taskFilled: taskFilledSlice,
 
     [authApi.reducerPath]: authApi.reducer,
     [userApi.reducerPath]: userApi.reducer,

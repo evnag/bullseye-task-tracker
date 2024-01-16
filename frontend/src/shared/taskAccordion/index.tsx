@@ -1,6 +1,6 @@
-import { UserFilledState } from "../../features/userFilled/userFilledSlice";
-import "./accordion.css";
-interface Props<V extends UserFilledState> {
+import { TaskFilledState } from "../../features/taskFilled/taskFilledSlice";
+import "../accordion/accordion.css";
+interface Props<V extends TaskFilledState> {
   title: string;
   content: JSX.Element;
   value: keyof V;
@@ -9,7 +9,7 @@ interface Props<V extends UserFilledState> {
   field: V;
 }
 
-export default function Accordion<V extends UserFilledState>({
+export default function TaskAccordion<V extends TaskFilledState>({
   title,
   content,
   value,

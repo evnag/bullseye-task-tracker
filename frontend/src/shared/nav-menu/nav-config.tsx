@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 export default function generateNavMenu() {
   const titles = [
-    ["Управление пользователями", "#"],
-    ["Управление задачами", "search"],
-    ["Управление проектами", "#"],
+    ["Управление пользователями", "/add-user"],
+    ["Добавить задачу", "/add-task"],
+    ["Управление задачами", "/search"],
     ["Управление спринтами", "#"],
   ];
 

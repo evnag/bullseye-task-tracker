@@ -31,8 +31,12 @@ const userFilledSlice = createSlice({
       state[action.payload.field] = action.payload.value;
       return state;
     },
+    defaulted:(state)=>{
+      state = initialState;
+      return state;
+    },
   },
 });
 
 export default userFilledSlice.reducer;
-export const { updated } = userFilledSlice.actions;
+export const { updated, defaulted } = userFilledSlice.actions;

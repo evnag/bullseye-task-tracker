@@ -1,3 +1,9 @@
+.accordion{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
 .accordion-title {
   display: flex;
   align-items: center;

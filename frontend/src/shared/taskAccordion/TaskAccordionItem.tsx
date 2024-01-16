@@ -1,20 +1,20 @@
 import { useAppDispatch } from "../../app/hooks";
+import { TaskFilledState } from "../../features/taskFilled/taskFilledSlice";
 import {
-  UserFilledState,
   updated,
-} from "../../features/userFilled/userFilledSlice";
+} from "../../features/taskFilled/taskFilledSlice";
 
-interface AccordionItemProps {
+interface TaskAccordionItemProps {
   message: string;
   placeholder: string;
-  field: keyof UserFilledState;
+  field: keyof TaskFilledState;
 }
 
-export default function AccordionItem({
+export default function TaskAccordionItem({
   message,
   placeholder,
   field,
-}: AccordionItemProps) {
+}: TaskAccordionItemProps) {
   const dispatch = useAppDispatch();
   return (
     <div className="accordion-item-input">
