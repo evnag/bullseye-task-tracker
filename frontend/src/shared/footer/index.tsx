@@ -1,3 +1,5 @@
+import "./footer.css"
+
 interface Props {}
 
 export default function Footer({}: Props) {

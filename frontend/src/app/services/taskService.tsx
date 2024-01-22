@@ -19,8 +19,8 @@ export const addNewTask = (taskName: string, priority: string, status:string, de
     })
   }
 
-  export const getTaskByName = (taskName: string) => {
-    return axios.get<Array<TaskData>>(`${API_URL}/search?taskName=${taskName}`)
+  export const getTaskByName = (taskName: string, page: number) => {
+    return axios.get<Array<TaskData>>(`${API_URL}/search?taskName=${taskName}&page=${page}&size=2`)
     .then((response) => {
       return response.data;
     });

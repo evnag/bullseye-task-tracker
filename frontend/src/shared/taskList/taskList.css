@@ -1,4 +1,9 @@
-.task-list-item{
+.task-content{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.task-list-item {
     width: 100%;
     background: #dddddd;
     width: 442px;
@@ -8,4 +13,67 @@
     text-indent: 10px;
     margin: 15px auto;
     text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.task-list-accordion-clicked{
+    width: 100%;
+    width: 442px;
+    height: 41px;
+    text-indent: 10px;
+    margin: 15px auto;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.list-item-content{
+    display: flex;
+    justify-content: center;
+    margin-left: 50px;
+}
+
+td {
+    width: 200px;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.td-name-field {
+    width: 150px;
+    text-align: center;
+}
+
+.td-name-value {
+    font-weight: 700;
+}
+.td-value {
+    font-weight: 700;
+}
+
+.btn-div {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+.btn {
+   width: 158px;
+   height: 40px; 
+   margin: 0 12px;
+}
+
+.edit-btn {
+    background-color: #106DF9;
+    color: #fff;
+    opacity: 1;
+}
+
+.delete-btn {
+    background-color: #fff;
+    color: #106DF9;
+    border: 1px solid #106DF9;
 }

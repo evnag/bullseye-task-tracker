@@ -1,6 +1,7 @@
 import "./userpic.css";
 import { UserProfileProps } from "../../entities/userProfile/model";
 import { cn } from "@bem-react/classname";
+import user_svg from "/src/assets/user_logo.svg"
 
 export interface UserPicProps {
   showUser: boolean;
@@ -16,7 +17,7 @@ export default function UserPic({ showUser, profile }: UserPicProps) {
     return (
       <div className={userpic()}>
         <div className={userpic("avatar")}>
-          <img src={profile.avatar} alt="Аватарка" />
+          <img src={profile.avatar || user_svg} alt="Аватарка" />
         </div>
         <div className="name">
           <div className="name first_name">{profile.firstName}</div>

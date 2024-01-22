@@ -1,19 +1,39 @@
-import { TaskFilledState } from "../../features/taskFilled/taskFilledSlice";
+import TaskData from "../../entities/taskData/model";
 
-interface Props<V extends TaskFilledState> {
-  title: string;
-  field: V;
-  value: keyof V;
+interface Props {
+  value: TaskData;
+  ref: any;
 }
 
-export default function TaskListItemContent<V extends TaskFilledState>({title, field, value}: Props<V>) {
+export default function TaskListItemContent({ value, ref}: Props) {
 
   return (
     <><div className="list-item-content">
-      <div>{title}</div>
-      <div>{field[value] as string}ТУТ значение</div>
+      <table>
+        <tr>
+          <td>Приоритет</td>
+          <td className="td-value">{value.priority}</td>
+        </tr>
+        <tr>
+          <td>Статус</td>
+          <td className="td-value">{value.status}</td>
+        </tr>
+        <tr>
+          <td>Описание</td>
+          <td className="td-value">{value.description}</td>
+        </tr>
+        <tr>
+          <td>Сложность</td>
+          <td className="td-value">{value.difficulty}</td>
+        </tr>
+        <tr>
+          <td>Исполнитель</td>
+          <td className="td-value">{value.executor}</td>
+        </tr>
+      </table>
     </div>
-    <button type="button">Редактировать</button>
-    <button type="button">Удалить</button></>
+    <div className="btn-div">
+    <button id="edit-btn" className="btn edit-btn" type="button" ref={ref}>Редактировать</button>
+    <button className="btn delete-btn" type="button">Удалить</button></div></>
   )
 }
